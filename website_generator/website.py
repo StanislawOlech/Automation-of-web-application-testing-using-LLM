@@ -12,8 +12,7 @@ class Website:
         self.objects = spec
         self.conditions = [False] * len(spec) # initially all conditions are False
         self.toggled    = [False] * len(spec) # to track button states
-        self.badness   = badness
-        self.seed       = random.uniform(0, 1)
+        self.seeds      = [random.randint(1, 3) * (random.uniform(0, 1) < badness) for _ in spec]
 
     def use(self, test_data):
         # it should use the text boxes and buttons based on the test data
@@ -21,8 +20,13 @@ class Website:
         for index, input in test_data:
             result = self.objects[index][1].is_met(conditions=self.conditions, input=input)
 
-            if self.badness >= self.seed % (index+1):  # TODO check if that seed usage is ok
-                result = not result # TODO code allways true and allways false
+            match self.seeds[index]:
+                case 1:
+                    result = not result
+                case 2:
+                    result = False
+                case 3:
+                    result = True
 
             self.conditions[index] = result
 
@@ -32,8 +36,13 @@ class Website:
                 continue
             result = self.objects[index][1].is_met(conditions=self.conditions, input="")
 
-            if self.badness >= self.seed % (index+1):
-                result = not result
+            match self.seeds[index]:
+                case 1:
+                    result = not result
+                case 2:
+                    result = False
+                case 3:
+                    result = True
 
             self.conditions[index] = result
 
