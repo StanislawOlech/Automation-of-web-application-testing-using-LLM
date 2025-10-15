@@ -1,5 +1,5 @@
 from specification_generator.gen_spec import generate_specification
-from test_data_generator import generate_test_data
+from test_data_generator.generate_data import generate_test_data
 from website_generator.website import Website
 from tester import test_website
 
