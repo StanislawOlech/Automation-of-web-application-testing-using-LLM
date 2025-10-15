@@ -1,18 +1,27 @@
-
+from requirements import *
 
 class Website:
+    # TODO fix the comments
     def __init__(self, spec):
-        # TODO generate website based on specification
         # it should contain buttons and text boxes as per the spec
         # gets a list of touples (bool if_is_button, an class: requirement)
         # the order of buttons and text boxes should be the same as in the spec
         # conditions is a list of bools indicating if previous buttons/text boxes were used successfully
 
-        self.buttons = []
-        self.text_boxes = []
+        self.objects = spec
+        self.conditions = [False] * len(spec) # initially all conditions are False
+        self.toggled    = [False] * len(spec) # to track button states
 
     def use(self, test_data):
-        # TODO implement
         # it should use the text boxes and buttons based on the test data
 
-        pass
+        for index, input in test_data:
+            result = self.objects[index][1].is_met(conditions=self.conditions, input=input)
+            self.conditions[index] = result
+
+        for index, (is_button, requiment) in enumerate(self.objects):
+            # May get affected by computation order but it is website feature
+            if self.toggled[index]:
+                continue
+            result = self.objects[index][1].is_met(conditions=self.conditions, input="")
+            self.conditions[index] = result

@@ -11,16 +11,16 @@ def generate_specification():
     for _ in range(num_of_objects):
         if_is_button = random.choice([True, False])
         if if_is_button:
-            requirement = random.choice([ButtonALL,
-                                        ButtonANY])
+            requirement = random.choice([ButtonALL(),
+                                        ButtonANY()])
         else:
-            requirement = random.choice([MinLengthRequirement,
-                                         MaxLengthRequirement,
-                                         ContainsNumberRequirement,
-                                         StartFromCapitalLetter,
-                                         IsNotInTheList,
-                                         IsInTheList,
-                                         ContainsLetter])
+            requirement = random.choice([MinLengthRequirement(),
+                                         MaxLengthRequirement(),
+                                         ContainsNumberRequirement(),
+                                         StartFromCapitalLetter(),
+                                         IsNotInTheList(),
+                                         IsInTheList(),
+                                         ContainsLetter()])
         spec.append((if_is_button, requirement))
 
     return spec
