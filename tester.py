@@ -2,8 +2,8 @@ import numpy as np
 import random
 
 def test_website(website, test_data, treshold=0.1):
-    correct_results = np.zeros(test_data.shape[0])
-    results         = np.zeros(test_data.shape[0])
+    correct_results = np.zeros(len(test_data))
+    results         = np.zeros(len(test_data))
 
     for i, test in enumerate(test_data):
         correct_results[i] = website.use(test)
