@@ -1,5 +1,5 @@
 import random
-from requirements import *
+from requirements.get_requirements import get_random_requiment
 
 def generate_specification():
     """
@@ -28,20 +28,8 @@ def generate_specification():
     spec = []
 
     for _ in range(num_of_objects):
-        if_is_button = random.choice([True, False])
-        if if_is_button:
-            requirement = random.choice([ButtonALL(),
-                                        ButtonANY(),
-                                        ButtonAlwaysTrue(),
-                                        ButtonAlwaysFalse()])
-        else:
-            requirement = random.choice([MinLengthRequirement(),
-                                         MaxLengthRequirement(),
-                                         ContainsNumberRequirement(),
-                                         StartFromCapitalLetter(),
-                                         IsNotInTheList(),
-                                         IsInTheList(),
-                                         ContainsLetter()])
-        spec.append((if_is_button, requirement))
+        is_button = random.choice([True, False])
+        requirement = get_random_requiment(is_button)
+        spec.append((is_button, requirement))
 
     return spec

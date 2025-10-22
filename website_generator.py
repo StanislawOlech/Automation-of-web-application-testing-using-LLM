@@ -1,5 +1,5 @@
 import random
-from requirements import *
+from requirements.basic_requirements import *
 
 def appply_error(result, type_of_error):
     """

@@ -46,18 +46,7 @@ class MinLengthRequirement(Requirement):
         return len(input) >= self.min_length
 
     def __str__(self):
-        return f"The text is at least {self.min_length} characters long."
-
-
-class MaxLengthRequirement(Requirement):
-    def __init__(self, max_length=10):
-        self.max_length = max_length
-
-    def is_met(self, conditions, input):
-        return len(input) <= self.max_length
-
-    def __str__(self):
-        return f"The text is at most {self.max_length} characters long."
+        return f"more than {self.min_length} characters long."
 
 
 class ContainsNumberRequirement(Requirement):
@@ -65,7 +54,7 @@ class ContainsNumberRequirement(Requirement):
         return any(char.isdigit() for char in input)
 
     def __str__(self):
-        return "The text contains at least one numeric character."
+        return "composed of numeric character."
 
 
 class StartFromCapitalLetter(Requirement):
@@ -73,41 +62,20 @@ class StartFromCapitalLetter(Requirement):
         return input[0].isupper() if input else False
 
     def __str__(self):
-        return "The text starts with a capital letter."
-
-
-class IsNotInTheList(Requirement):
-    def __init__(self, forbidden_list=None):
-        if forbidden_list is None:
-            forbidden_list = ["admin", "user", "test"]
-        self.forbidden_list = forbidden_list
-
-    def is_met(self, conditions, input):
-        return input not in self.forbidden_list
-
-    def __str__(self):
-        return f"The text is not in the forbidden list: {self.forbidden_list}."
+        return "starting with a capital letter."
 
 
 class IsInTheList(Requirement):
     def __init__(self, allowed_list=None):
         if allowed_list is None:
-            allowed_list = ["admin", "user", "test"]
+            allowed_list = ["Admin", "user", "test"]
         self.allowed_list = allowed_list
 
     def is_met(self, conditions, input):
         return input in self.allowed_list
 
     def __str__(self):
-        return f"The text is in the allowed list: {self.allowed_list}."
-
-
-class AbsenceOfLetters(Requirement):
-    def is_met(self, conditions, input):
-        return all(not char.isalpha() for char in input)
-
-    def __str__(self):
-        return "The text contains no alphabetic characters."
+        return f"in the list: {self.allowed_list}."
 
 
 class ContainsLetter(Requirement):
@@ -115,12 +83,27 @@ class ContainsLetter(Requirement):
         return any(char.isalpha() for char in input)
 
     def __str__(self):
-        return "The text contains at least one alphabetic character."
+        return "composed of a letter."
 
 
-# TODO add more requirements
-# Special character requirement
-# Numbers sum requirement
+class ContainsSpecialChar(Requirement):
+    def is_met(self, conditions, input):
+        return any(not char.isalnum() for char in input)
+
+    def __str__(self):
+        return "composed of a special character."
+
+
+class DigitsSumToOver(Requirement):
+    def __init__(self, threshold=5):
+        self.threshold = threshold
+
+    def is_met(self, conditions, input):
+        digits = [int(char) for char in input if char.isdigit()]
+        return sum(digits) > self.threshold
+
+    def __str__(self):
+        return f"the sum of digits is over {self.threshold}."
 
 
 # Button requirements
@@ -130,7 +113,7 @@ class ButtonALL(Requirement):
         return all(conditions)  # TODO check if empty
 
     def __str__(self):
-        return "All previous conditions must be met."
+        return "enabled if all previous conditions are met."
 
 
 class ButtonANY(Requirement):
@@ -138,7 +121,7 @@ class ButtonANY(Requirement):
         return any(conditions) # TODO check if empty
 
     def __str__(self):
-        return "At least one previous condition must be met."
+        return "enabled if at least one previous condition is met."
 
 
 class ButtonAlwaysTrue(Requirement):
@@ -146,12 +129,4 @@ class ButtonAlwaysTrue(Requirement):
         return True
 
     def __str__(self):
-        return "This button always True."
-
-
-class ButtonAlwaysFalse(Requirement):
-    def is_met(self, conditions, input):
-        return False
-
-    def __str__(self):
-        return "This button always False."
+        return "true."
