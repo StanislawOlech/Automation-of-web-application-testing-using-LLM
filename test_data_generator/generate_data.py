@@ -13,7 +13,7 @@ def generate_test_data(spec):
 
     Returns
     -------
-    test_data : list of tuple[int, str or None]
+    list of tuple[int, str or None]
         A list of moves, where each move is a tuple containing:
         - index of the button/text box to interact with (int)
         - input value for text boxes (str) or None for buttons.

@@ -26,7 +26,23 @@ all_button_req   = [ButtonALL(),
                     NegatedRequiment(ButtonAlwaysTrue())]
 
 
-def get_random_requiment(is_button, task_difficulty=1):
+def get_random_requiment(is_button, task_difficulty=0.25):
+    """
+    Generate a random requirement for a button or text box.
+
+    Parameters
+    ----------
+    is_button : bool
+        Indicates whether the element is a button or a text box.
+    task_difficulty : float, optional
+        A float between 0 and 1 indicating the probability of generating a nested
+        requirement.
+
+    Returns
+    -------
+    Requirement
+        The generated requirement.
+    """
     if is_button:
         return(random.choice(all_button_req))
 
