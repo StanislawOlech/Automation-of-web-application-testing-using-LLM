@@ -1,4 +1,7 @@
 import random
+import ast
+from google import genai
+from secret import api_key
 
 def generate_test_data(spec):
     """
@@ -18,21 +21,35 @@ def generate_test_data(spec):
         - index of the button/text box to interact with (int)
         - input value for text boxes (str) or None for buttons.
     """
-    # TODO Do it with LLM instead of this placeholder
-
     test_data = []
-    num_of_test  = 5 # TODO chose a suitable number
-    num_of_moves = 3 # TODO chose a suitable number
+    num_tests  = 5 # TODO chose a suitable number
+    num_moves = 3 # TODO chose a suitable number
 
-    for _ in range(num_of_test):
-        move = []
-        for _ in range(num_of_moves):
-            index = random.randint(0, len(spec)-1)
-            if spec[index][0]: # button
-                input = None # the move of the button is understood as clicking it
-            else: # text box
-                input = random.choice(["test", "Test1", "12345", "Admin", "hello", "HELLO", "user123", "no_numbers", "123456", "A1b2C3", "short", "thisisaverylonginput"])
-            move.append((index, input))
-        test_data.append(move)
+    # Draft of prompt
+    prompt = "You are generating test cases for a website.\n\n"
+    prompt += "Each UI element is described below:\n"
+    for i, (is_button, requirement) in enumerate(spec):
+        element_type = "Button" if is_button else "Text box"
+        prompt += f"{i}. {element_type} — {requirement}\n"
+    prompt += (
+        f"\nGenerate {num_tests} test cases. Each test case should contain {num_moves} moves.\n"
+        "Each move should be a tuple of the form (index, input_value), where input_value is None for buttons.\n"
+        "Output in valid Python list syntax, no explanations.\n"
+    )
 
-    return test_data
+
+    client = genai.Client(api_key=api_key)
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=prompt,
+    )
+
+    try:
+        generated_data = ast.literal_eval(response.text)
+    except Exception as e:
+        print(e)
+        generated_data = generate_test_data(spec) # evil programing
+
+
+    return generated_data

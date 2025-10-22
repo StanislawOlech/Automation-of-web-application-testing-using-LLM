@@ -1,6 +1,3 @@
-import numpy as np
-import random
-
 def test_website(good_website, bad_website, test_data):
     """
     Test two websites against the same test data and return the accuracy of their

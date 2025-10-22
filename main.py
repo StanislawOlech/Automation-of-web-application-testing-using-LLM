@@ -14,7 +14,7 @@ def main():
     website and a faulty version, then tests them against the same set of inputs to
     mesure the test vectors coverage."""
 
-    num_tests = 1000 # TODO chose a suitable number
+    num_tests = 1 # TODO chose a suitable number
     score = 0
     badness_level = 0.5
     for test in range(num_tests):

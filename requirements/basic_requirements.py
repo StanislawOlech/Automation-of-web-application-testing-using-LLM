@@ -113,7 +113,7 @@ class ButtonALL(Requirement):
         return all(conditions)  # TODO check if empty
 
     def __str__(self):
-        return "enabled if all previous conditions are met."
+        return "all previous conditions are met."
 
 
 class ButtonANY(Requirement):
@@ -121,7 +121,7 @@ class ButtonANY(Requirement):
         return any(conditions) # TODO check if empty
 
     def __str__(self):
-        return "enabled if at least one previous condition is met."
+        return "at least one previous condition is met."
 
 
 class ButtonAlwaysTrue(Requirement):
@@ -129,4 +129,4 @@ class ButtonAlwaysTrue(Requirement):
         return True
 
     def __str__(self):
-        return "true."
+        return "True == True."
