@@ -19,9 +19,11 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
 
 
 1. Create a Google AI Studio account
+   
     Go to [Google AI Studio](https://aistudio.google.com/) and generate your own API key.
 
-2. Save Your API Key
+3. Save Your API Key
+   
     You’ll need to create a secret.py file in your project’s root directory and store your API key inside it.
 
 
@@ -36,7 +38,7 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
     ```python
     api_key = "<YOUR_API_KEY_HERE>"
     ```
-3. Run the Application
+4. Run the Application
     ```powershell
     python main.py
     ```
