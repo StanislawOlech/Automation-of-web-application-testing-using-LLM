@@ -1,7 +1,14 @@
 import random
 import ast
 from google import genai
-from secret import api_key
+try:
+    from secret import api_key
+except ImportError:
+    raise FileNotFoundError("secret.py not found. Please create it and add your API key.")
+
+if not api_key or api_key.startswith("<"):
+    raise ValueError("API key not set. Please update secret.py with your Google AI Studio API key.")
+
 
 def generate_test_data(spec):
     """
@@ -48,7 +55,6 @@ def generate_test_data(spec):
     try:
         generated_data = ast.literal_eval(response.text)
     except Exception as e:
-        print(e)
         generated_data = generate_test_data(spec) # evil programing
 
 

@@ -15,7 +15,28 @@ To perform this evaluation, two separate websites were generated: one without an
 This project was completed as part of the Model-Based and Test-Driven Development course in the Cyber-Physical Systems major within the Automatic Control and Robotics program at the AGH University of Krakow.
 
 
-Usage:
-```bash
-python main.py
-```
+## Usage:
+
+
+1. Create a Google AI Studio account
+    Go to [Google AI Studio](https://aistudio.google.com/) and generate your own API key.
+
+2. Save Your API Key
+    You’ll need to create a secret.py file in your project’s root directory and store your API key inside it.
+
+
+    Option 1 - Using PowerShell (Windows)
+    ```powershell
+    Set-Content -Path .\secret.py -Value 'api_key = "<YOUR_API_KEY_HERE>"'
+    ```
+
+    Option 2 – Manually (Any OS)
+
+    Create a file named "secret.py" and add the following line:
+    ```python
+    api_key = "<YOUR_API_KEY_HERE>"
+    ```
+3. Run the Application
+    ```powershell
+    python main.py
+    ```
