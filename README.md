@@ -19,11 +19,11 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
 
 
 1. Create a Google AI Studio account
-   
+
     Go to [Google AI Studio](https://aistudio.google.com/) and generate your own API key.
 
-3. Save Your API Key
-   
+2. Save Your API Key
+
     You’ll need to create a secret.py file in your project’s root directory and store your API key inside it.
 
 
@@ -38,7 +38,57 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
     ```python
     api_key = "<YOUR_API_KEY_HERE>"
     ```
-4. Run the Application
+3. Run the Application
     ```powershell
     python main.py
     ```
+
+## Website requirements
+
+In our simplified model, each website consists of between one and five elements. Each element is randomly assigned to be either a text box or a button (with a 50/50 probability).
+
+Each element has an associated logical requirement, which can range from very simple (e.g., “always true”) to more complex conditions involving nested sub-requirements (see <em>Objects requirements</em> chapter). An element is considered satisfied if its defined requirement is met.
+
+
+During evaluation, the website first checks whether each used element satisfies its requirement. It then verifies whether each unused element is also in a valid state. Currently, this verification occurs once in sequence across all elements, which may lead to edge cases — for example, requirements dependent on the satisfaction of previous elements or their negations.
+
+For a website to pass the test, the overall output (i.e., the satisfaction state of all elements) must match that of the error-free website. A mismatch indicates that some element (button or text box) behaves incorrectly — for example, a text field accepting any password, a valid password being rejected, or a form allowing incomplete or incorrect data submission.
+
+
+
+## Objects requirements
+
+Each text box element can be associated with one or more of the following logical requirements:
+
+1. Minimum length – The input must contain at least a specified number of characters.
+(Default and currently the only active value: 5 characters.)
+
+2. Contains a number – The input must include at least one numeric digit (0–9).
+
+3. Starts with a capital letter – The input must begin with an uppercase alphabetic character (A–Z).
+
+4. Matches allowed values – The input must exactly match one of the predefined allowed strings.
+(Default and currently active values: ["Admin", "user", "test"].)
+
+5. Contains a letter – The input must include at least one alphabetic character (A–Z or a–z).
+
+6. Contains a special character – The input must include at least one non-alphanumeric character (e.g., !, #, $, %).
+
+7. Digit sum threshold – The sum of all digits in the input must exceed a specified threshold.
+(Default and currently active value: 5.)
+
+
+
+Button elements can have one of the following logical requirements:
+
+1. All previous text box conditions must be satisfied.
+2. At least one of the previous text box conditions must be satisfied.
+3. Always satisfied.
+
+
+
+Additional Notes
+
+- Each requirement have a reversed version, meaning the logical negation of the original condition is applied.
+
+- Depending on the task_difficulty parameter (used in requirements.get_requirements), the system may generate nested or double requirements, where two conditions are combined (e.g., both must hold, or one negated, etc.) to increase complexity.
