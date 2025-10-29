@@ -12,7 +12,7 @@ def main():
     This function orchestrates the generation of website specifications, test data,
     and the evaluation of website behavior. It creates both a correctly functioning
     website and a faulty version, then tests them against the same set of inputs to
-    mesure the test vectors coverage."""
+    measure the test vectors coverage."""
 
     num_tests = 1 # TODO chose a suitable number
     score = 0

@@ -1,7 +1,7 @@
 import random
 from requirements.basic_requirements import *
 
-def appply_error(result, type_of_error):
+def apply_error(result, type_of_error):
     """
     Apply a specified type of error to a boolean result.
 
@@ -43,7 +43,7 @@ class Website:
         Parameters
         ----------
         spec : list of tuple[bool, Requirement]
-            Specification list of touples (is_button, requirement)
+            Specification list of tuples (is_button, requirement)
         badness : float, optional
             A float between 0 and 1 indicating the probability of introducing errors
             in the website's behavior. Default is 0 (no errors).
@@ -94,7 +94,7 @@ class Website:
         for index, input in test_data:
             result = self.objects[index][1].is_met(conditions=self.conditions[:index], input=input)
 
-            result = appply_error(result, self.errors[index])
+            result = apply_error(result, self.errors[index])
 
             self.conditions[index] = result
 
@@ -106,7 +106,7 @@ class Website:
                 continue
             result = self.objects[index][1].is_met(conditions=self.conditions, input="")
 
-            result = appply_error(result, self.errors[index])
+            result = apply_error(result, self.errors[index])
 
             self.conditions[index] = result
 

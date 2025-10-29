@@ -18,7 +18,7 @@ def generate_test_data(spec):
     Parameters
     ----------
     spec : list of tuple[bool, Requirement]
-        Specification list of touples (is_button, requirement)
+        Specification list of tuples (is_button, requirement)
 
 
     Returns
@@ -55,7 +55,7 @@ def generate_test_data(spec):
     try:
         generated_data = ast.literal_eval(response.text)
     except Exception as e:
-        generated_data = generate_test_data(spec) # evil programing
+        generated_data = generate_test_data(spec) # evil programming
 
 
     return generated_data

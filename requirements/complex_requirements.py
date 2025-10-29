@@ -1,6 +1,6 @@
 from requirements.basic_requirements import *
 
-class NestedRequiment(Requirement):
+class NestedRequirement(Requirement):
     def __init__(self, req1, req2):
         self.req1 = req1
         self.req2 = req2
@@ -15,7 +15,7 @@ class NestedRequiment(Requirement):
         return str_req1 + " and " + str_req2
 
 
-class NegatedRequiment(Requirement):
+class NegatedRequirement(Requirement):
     def __init__(self, req):
         self.req = req
 

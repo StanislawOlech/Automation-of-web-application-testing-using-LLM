@@ -1,5 +1,5 @@
 import random
-from requirements.get_requirements import get_random_requiment
+from requirements.get_requirements import get_random_requirement
 
 def generate_specification():
     """
@@ -12,7 +12,7 @@ def generate_specification():
     Returns
     -------
     list of tuple[bool, Requirement]
-        Specification list of touples (is_button, requirement)
+        Specification list of tuples (is_button, requirement)
 
     Description
     -----------
@@ -29,7 +29,7 @@ def generate_specification():
 
     for _ in range(num_of_objects):
         is_button = random.choice([True, False])
-        requirement = get_random_requiment(is_button)
+        requirement = get_random_requirement(is_button)
         spec.append((is_button, requirement))
 
     return spec
