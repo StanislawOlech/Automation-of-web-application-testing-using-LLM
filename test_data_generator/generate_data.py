@@ -1,5 +1,6 @@
 import random
 import ast
+import re
 from google import genai
 try:
     from secret import api_key
@@ -52,8 +53,18 @@ def generate_test_data(spec):
         contents=prompt,
     )
 
+    clean_text = re.sub(r',\s*([\]\)])', r'\1', response.text)
+    clean_text = clean_text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+    clean_text = ''.join(ch for ch in clean_text if ord(ch) >= 32 or ch in '\n\t')
+    clean_text = clean_text.replace('null', 'None')
+
+    if clean_text.startswith("```python"):
+        clean_text = clean_text[len("```python"):]
+    if clean_text.endswith("```"):
+        clean_text = clean_text[:-3]
+
     try:
-        generated_data = ast.literal_eval(response.text)
+        generated_data = ast.literal_eval(clean_text)
     except Exception as e:
         generated_data = generate_test_data(spec) # evil programming
 

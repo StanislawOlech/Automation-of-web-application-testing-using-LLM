@@ -43,6 +43,7 @@ class MinLengthRequirement(Requirement):
         self.min_length = min_length
 
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return len(input) >= self.min_length
 
     def __str__(self):
@@ -51,6 +52,7 @@ class MinLengthRequirement(Requirement):
 
 class ContainsNumberRequirement(Requirement):
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return any(char.isdigit() for char in input)
 
     def __str__(self):
@@ -59,6 +61,7 @@ class ContainsNumberRequirement(Requirement):
 
 class StartFromCapitalLetter(Requirement):
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return input[0].isupper() if input else False
 
     def __str__(self):
@@ -72,6 +75,7 @@ class IsInTheList(Requirement):
         self.allowed_list = allowed_list
 
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return input in self.allowed_list
 
     def __str__(self):
@@ -80,6 +84,7 @@ class IsInTheList(Requirement):
 
 class ContainsLetter(Requirement):
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return any(char.isalpha() for char in input)
 
     def __str__(self):
@@ -88,6 +93,7 @@ class ContainsLetter(Requirement):
 
 class ContainsSpecialChar(Requirement):
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         return any(not char.isalnum() for char in input)
 
     def __str__(self):
@@ -99,6 +105,7 @@ class DigitsSumToOver(Requirement):
         self.threshold = threshold
 
     def is_met(self, conditions, input):
+        if (not isinstance(input, str)) : return False
         digits = [int(char) for char in input if char.isdigit()]
         return sum(digits) > self.threshold
 
