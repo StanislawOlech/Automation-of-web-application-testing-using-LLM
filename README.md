@@ -43,6 +43,14 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
     python main.py
     ```
 
+### Optional Website Visualization
+
+To visualize and test the website, run:
+
+```powershell
+python visualize_website.py
+```
+
 ## Website requirements
 
 In our simplified model, each website consists of between one and five elements. Each element is randomly assigned to be either a text box or a button (with a 50/50 probability).
