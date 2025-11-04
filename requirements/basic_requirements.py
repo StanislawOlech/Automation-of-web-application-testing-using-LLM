@@ -136,4 +136,4 @@ class ButtonAlwaysTrue(Requirement):
         return True
 
     def __str__(self):
-        return "True == True."
+        return "met."

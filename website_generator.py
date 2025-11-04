@@ -101,10 +101,10 @@ class Website:
 
         # evaluation of not toggled buttons/text boxes
         # WARNING: May lead to different results based on computation order
-        for index, (is_button, requiment) in enumerate(self.objects):
+        for index, (_, requirement) in enumerate(self.objects):
             if self.toggled[index]:
                 continue
-            result = self.objects[index][1].is_met(conditions=self.conditions, input="")
+            result = requirement.is_met(conditions=self.conditions, input="")
 
             result = apply_error(result, self.errors[index])
 

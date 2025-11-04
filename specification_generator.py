@@ -23,7 +23,7 @@ def generate_specification():
     requirement classes imported from `requirements`.
     """
 
-    num_of_objects   = random.randint(1, 5)
+    num_of_objects   = random.randint(3, 6)
 
     spec = []
 
