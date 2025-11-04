@@ -1,6 +1,6 @@
 from specification_generator import generate_specification
 from test_data_generator.generate_data import generate_test_data
-from website_generator import Website
+from website import Website
 from tester import test_website
 from utils import progress_bar
 

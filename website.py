@@ -91,13 +91,14 @@ class Website:
         any errors introduced based on the website's badness level.
         """
 
-        for index, input in test_data:
-            result = self.objects[index][1].is_met(conditions=self.conditions[:index], input=input)
+        for index, input_val in test_data:
+            result = self.objects[index][1].is_met(conditions=self.conditions[:index], input=input_val)
 
             result = apply_error(result, self.errors[index])
 
             self.conditions[index] = result
 
+            self.toggled[index] = True
 
         # evaluation of not toggled buttons/text boxes
         # WARNING: May lead to different results based on computation order
