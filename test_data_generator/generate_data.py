@@ -11,15 +11,56 @@ if not api_key or api_key.startswith("<"):
     raise ValueError("API key not set. Please update secret.py with your Google AI Studio API key.")
 
 
-def generate_test_data(spec):
+def generate_prompt(spec, num_tests, num_moves, informed=True):
     """
-    Generate test data based on the provided website specification.
+    Generate prompt for data generation. Depending on the "informed_prompt" flag it
+    will include requirements for prompt generation.
 
 
     Parameters
     ----------
     spec : list of tuple[bool, Requirement]
         Specification list of tuples (is_button, requirement)
+    num_tests : int
+        Number of test cases to generate.
+    num_moves : int
+        Number of moves per test case.
+    informed_prompt : bool , optional
+        Flag indicating whether to include requirements in the prompt.
+
+
+
+    Returns
+    -------
+    str
+        Generated prompt string.
+    """
+
+    prompt = "You are generating test cases for a website.\n\n"
+    prompt += "Each UI element is described below:\n"
+    for i, (is_button, requirement) in enumerate(spec):
+        element_type = "Button" if is_button else "Text box"
+        prompt += f"{i}. {element_type} — {requirement}\n" if informed else  f"{i}. {element_type}\n"
+    prompt += (
+        f"\nGenerate {num_tests} test cases. Each test case should contain {num_moves} moves.\n"
+        "Each move should be a tuple of the form (index, input_value), where input_value is None for buttons.\n"
+        "Output in valid Python list syntax, no explanations.\n"
+    )
+    return prompt
+
+
+def generate_test_data(spec, informed_prompt=True):
+    """
+    Generate test data based on the provided website specification. Depending on the "informed_prompt" flag the prompt
+    will include requirements for prompt generation.
+
+
+    Parameters
+    ----------
+    spec : list of tuple[bool, Requirement]
+        Specification list of tuples (is_button, requirement)
+    informed_prompt : bool , optional
+        Flag indicating whether to include requirements in the prompt.
 
 
     Returns
@@ -29,21 +70,13 @@ def generate_test_data(spec):
         - index of the button/text box to interact with (int)
         - input value for text boxes (str) or None for buttons.
     """
-    test_data = []
-    num_tests  = 5 # TODO chose a suitable number
+    num_tests = 5 # TODO chose a suitable number
     num_moves = 3 # TODO chose a suitable number
 
-    # Draft of prompt
-    prompt = "You are generating test cases for a website.\n\n"
-    prompt += "Each UI element is described below:\n"
-    for i, (is_button, requirement) in enumerate(spec):
-        element_type = "Button" if is_button else "Text box"
-        prompt += f"{i}. {element_type} — {requirement}\n"
-    prompt += (
-        f"\nGenerate {num_tests} test cases. Each test case should contain {num_moves} moves.\n"
-        "Each move should be a tuple of the form (index, input_value), where input_value is None for buttons.\n"
-        "Output in valid Python list syntax, no explanations.\n"
-    )
+    prompt = generate_prompt(spec,
+                             num_tests=num_tests,
+                             num_moves=num_moves,
+                             informed=informed_prompt)
 
 
     client = genai.Client(api_key=api_key)
