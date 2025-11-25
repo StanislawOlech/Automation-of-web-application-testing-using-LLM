@@ -7,7 +7,7 @@ To perform this evaluation, two separate websites were generated: one without an
 
 - The requirement is always True,
 
-- The requirement is always False, and
+- The requirement is always False,
 
 - The requirement produces a mismatch from the correct answer.
 
@@ -43,13 +43,42 @@ This project was completed as part of the Model-Based and Test-Driven Developmen
     python main.py
     ```
 
-### Optional Website Visualization
+### [Optional] Website Visualization
 
 To visualize and test the website, run:
 
 ```powershell
 python visualize_website.py
 ```
+
+
+### [Optional] Test of Website Declared In JSON File
+
+To test a specific website, you need to define a .json file similar to the following:
+
+```json
+{
+    "elements": [
+        {
+            "type":        "textbox",
+            "name":        "Username",
+            "requirement": "IsInTheList",
+            "negated":      true,
+            "list":        ["admin", "user", "guest"]
+        },
+        ...
+    ]
+}
+```
+
+Then run:
+
+```powershell
+python test_specific_website.py --json_file "<YOUR_JSON_PATH_HERE>"'
+```
+
+Unfortunately, for now, not all arguments are parsed correctly.
+
 
 ## Website requirements
 

@@ -25,7 +25,7 @@ def generate_prompt(spec, num_tests, num_moves, informed=True):
         Number of test cases to generate.
     num_moves : int
         Number of moves per test case.
-    informed_prompt : bool , optional
+    informed_prompt : bool, optional
         Flag indicating whether to include requirements in the prompt.
 
 
@@ -49,7 +49,7 @@ def generate_prompt(spec, num_tests, num_moves, informed=True):
     return prompt
 
 
-def generate_test_data(spec, informed_prompt=True):
+def generate_test_data(spec, informed_prompt=True, num_tests=5, num_moves=3):
     """
     Generate test data based on the provided website specification. Depending on the "informed_prompt" flag the prompt
     will include requirements for prompt generation.
@@ -61,6 +61,10 @@ def generate_test_data(spec, informed_prompt=True):
         Specification list of tuples (is_button, requirement)
     informed_prompt : bool , optional
         Flag indicating whether to include requirements in the prompt.
+    num_tests : int, optional
+        Number of test cases to generate.
+    num_moves : int, optional
+        Number of moves per test case.
 
 
     Returns
@@ -70,8 +74,6 @@ def generate_test_data(spec, informed_prompt=True):
         - index of the button/text box to interact with (int)
         - input value for text boxes (str) or None for buttons.
     """
-    num_tests = 5 # TODO chose a suitable number
-    num_moves = 3 # TODO chose a suitable number
 
     prompt = generate_prompt(spec,
                              num_tests=num_tests,
