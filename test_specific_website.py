@@ -4,9 +4,19 @@ from utils import parse_elements
 from test_data_generator.generate_data import generate_test_data
 from website import Website
 
-# TODO: add descriptions
 
 def main(json_path):
+    """Main function to run the test for specific website.
+
+    Parameters
+    ----------
+    json_path : str
+        Path to the JSON website file.
+
+    Description
+    -----------
+    This function parses website from json, generates specific test cases for it
+    and then evaluates website behavior."""
     json_str = ""
 
     # Parse
