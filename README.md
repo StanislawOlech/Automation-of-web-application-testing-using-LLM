@@ -71,13 +71,37 @@ To test a specific website, you need to define a .json file similar to the follo
 }
 ```
 
+or for complex requirements
+
+```json
+{
+    "elements": [
+        {
+            "type":        "textbox",
+            "name":        "Password",
+            "complex":     [
+                {
+                    "requirement": "MinLengthRequirement",
+                    "value":        8,
+                    "negated":      false
+                },
+                {
+                    "requirement": "ContainsSpecialChar",
+                    "negated":      false
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
+```
+
 Then run:
 
 ```powershell
 python test_specific_website.py --json_file "<YOUR_JSON_PATH_HERE>"'
 ```
-
-Unfortunately, for now, nested requirements are not parsed correctly.
 
 
 ## Website requirements

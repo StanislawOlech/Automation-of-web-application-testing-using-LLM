@@ -1,6 +1,6 @@
 import json
 import argparse
-from utils import parse_elements
+from utils import parse_elements, load_specification
 from test_data_generator.generate_data import generate_test_data
 from website import Website
 
@@ -21,8 +21,7 @@ def main(json_path):
 
     # Parse
     try:
-        with open(json_path, 'r') as file:
-            json_str = file.read()
+        json_str = load_specification(json_path)
     except FileNotFoundError:
         raise Exception(f"Error: File '{json_path}' not found.")
 
