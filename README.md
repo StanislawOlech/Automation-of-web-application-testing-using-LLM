@@ -77,7 +77,7 @@ Then run:
 python test_specific_website.py --json_file "<YOUR_JSON_PATH_HERE>"'
 ```
 
-Unfortunately, for now, not all arguments are parsed correctly.
+Unfortunately, for now, nested requirements are not parsed correctly.
 
 
 ## Website requirements

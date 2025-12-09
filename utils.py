@@ -10,15 +10,26 @@ def load_specification(file_path):
 
 
 def make_requirement(req_name, element) -> Requirement:
-    # TODO implement all requirements
-    if req_name == "IsInTheList":
-        return IsInTheList(element.get("list", []))
-    elif req_name == "MinLengthRequirement":
+    if req_name == "MinLengthRequirement":
         return MinLengthRequirement()
+    elif req_name == "ContainsNumberRequirement":
+        return ContainsNumberRequirement()
+    elif req_name == "StartFromCapitalLetter":
+        return StartFromCapitalLetter()
+    elif req_name == "IsInTheList":
+        return IsInTheList(element.get("list", []))
     elif req_name == "ContainsLetter":
         return ContainsLetter()
+    elif req_name == "ContainsSpecialChar":
+        return ContainsSpecialChar()
+    elif req_name == "DigitsSumToOver":
+        return DigitsSumToOver()
     elif req_name == "ButtonALL":
         return ButtonALL()
+    elif req_name == "ButtonANY":
+        return ButtonANY()
+    elif req_name == "ButtonAlwaysTrue":
+        return ButtonAlwaysTrue()
     else:
         raise ValueError(f"Unknown requirement: {req_name}")
 
@@ -28,6 +39,8 @@ def parse_elements(data):
 
     for el in data.get("elements", []):
         req_obj = make_requirement(el["requirement"], el)
+
+        # TODO implement nested requirements
 
         if el.get("negated", False):
             req_obj = NegatedRequirement(req_obj)
