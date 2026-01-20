@@ -42,10 +42,10 @@ def main(json_path):
         results = website.use(test)
 
         print(f"\n=== Test {i} ===")
-        print("Input:")
-        for (fid, val), out in zip(test, results):
+        for fid, val in test:
             value = val if val is not None else "Pressed"
-            print(f"{fid} | Input: {value : <32} -> Output: {out : <32}")
+            print(f"{fid} | Input: {value : <32}")
+        print(f"Output: {results}")
 
 
 if __name__ == "__main__":
